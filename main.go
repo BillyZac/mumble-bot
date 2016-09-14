@@ -7,14 +7,21 @@ import (
     "os"
 
     "github.com/ChimeraCoder/anaconda"
+    "github.com/BillyZac/mumble-bot/config"
 )
 
 func postToTwitter(w http.ResponseWriter, r *http.Request) {
+   config, err := config.NewConfig()
+   if err != nil {
+     fmt.Printf("ERROR - Configuration error: %s\n", err.Error())   
+     os.Exit(1)
+   }
+
    tweet := r.URL.Path[1:]
 
-   anaconda.SetConsumerKey(os.Getenv("TWITTER_CONSUMER_KEY"))
-   anaconda.SetConsumerSecret(os.Getenv("TWITTER_CONSUMER_SECRET"))
-   api := anaconda.NewTwitterApi(os.Getenv("TWITTER_ACCESS_TOKEN"), os.Getenv("TWITTER_ACCESS_TOKEN_SECRET"))
+   anaconda.SetConsumerKey(config.TwitterConsumerKey)
+   anaconda.SetConsumerSecret(config.TwitterConsumerSecret)
+   api := anaconda.NewTwitterApi(config.TwitterAccessToken, config.TwitterAccessTokenSecret)
 
    fmt.Fprintf(w, "Going to post")
 
