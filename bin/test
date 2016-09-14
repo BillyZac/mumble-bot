@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+
+echo "Running go test"
+go test -v -parallel=2 -timeout=10s -race ./...
