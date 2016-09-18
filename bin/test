@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -e
+
+TEST_CMD="govendor test +local -v -parallel=2 -timeout=10s -race ./..."
+
+echo "Running \`$TEST_CMD\`"
+echo
+
+eval $TEST_CMD
