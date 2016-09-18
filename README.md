@@ -9,7 +9,7 @@ $ export GOPATH=$HOME/work
  
 Then build and install using the `go` tool:
 ```
-$ go install github.com/billyzac/mumble-bot
+$ go install github.com/BillyZac/mumble-bot
 ```
 
 To start the bot:
