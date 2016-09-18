@@ -11,6 +11,8 @@ import (
 )
 
 func postToTwitter(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Message received. Attempting to post a tweet...")
+
 	config, err := config.NewConfig()
 	if err != nil {
 		fmt.Printf("ERROR - Configuration error: %s\n", err.Error())
@@ -23,7 +25,6 @@ func postToTwitter(w http.ResponseWriter, r *http.Request) {
 	anaconda.SetConsumerSecret(config.TwitterConsumerSecret)
 	api := anaconda.NewTwitterApi(config.TwitterAccessToken, config.TwitterAccessTokenSecret)
 
-	fmt.Fprintf(w, "Going to post")
 
 	result, err := api.PostTweet(tweet, url.Values{})
 	if err != nil {
@@ -35,5 +36,6 @@ func postToTwitter(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", postToTwitter)
+	fmt.Println("Listening on port 8080...")
 	http.ListenAndServe(":8080", nil)
 }
